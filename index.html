@@ -14,7 +14,7 @@
       font-display: swap;
     }
     * { box-sizing: border-box; }
-    html, body { margin: 0; min-height: 100%; }
+    html, body { margin: 0; }
     body {
       display: flex;
       flex-direction: column;
@@ -31,6 +31,7 @@
       justify-content: space-between;
       padding: 14px 16px;
       border-bottom: 1px solid #2a2a2a;
+      flex-shrink: 0;
     }
     header h1 {
       margin: 0;
@@ -45,7 +46,7 @@
       align-items: center;
     }
     label { font-size: 13px; color: #bbb; display: flex; align-items: center; gap: 8px; }
-    button {
+    button, #font {
       appearance: none;
       border: 1px solid #444;
       background: #1a1a1a;
@@ -53,29 +54,25 @@
       padding: 8px 12px;
       font: inherit;
       cursor: pointer;
+      text-decoration: none;
     }
-    button:hover { background: #222; }
+    button:hover, #font:hover { background: #222; }
     input[type="range"] { width: min(140px, 30vw); }
     input[type="color"] { width: 36px; height: 28px; padding: 0; border: 0; background: none; }
     main {
-      flex: 1;
       display: grid;
-      grid-template-columns: 1fr;
-    }
-    @media (min-width: 900px) {
-      main { grid-template-columns: 1fr 1fr; min-height: 0; }
-      .tester, .glyphs { min-height: calc(100dvh - 120px); }
+      min-height: 80dvh;
     }
     .tester {
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 6vh 5vw;
+      min-height: 80dvh;
     }
     #preview {
       width: 100%;
       max-width: 640px;
-      min-height: 30vh;
       outline: none;
       text-align: center;
       font-family: "Cali Display", sans-serif;
@@ -85,54 +82,94 @@
       word-break: break-word;
     }
     .glyphs {
-      padding: 24px 20px 32px;
+      padding: 28px 24px 36px;
       border-top: 1px solid #2a2a2a;
       overflow: auto;
     }
-    @media (min-width: 900px) {
-      .glyphs { border-top: 0; border-left: 1px solid #2a2a2a; }
-    }
     .glyphs h2 {
-      margin: 0 0 16px;
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      margin: 0 0 12px;
+      font-size: 13px;
       color: #888;
       font-weight: 600;
     }
     .row {
       font-family: "Cali Display", sans-serif;
       font-weight: 900;
-      line-height: 1.25;
+      line-height: 1.3;
       word-break: break-word;
-      margin: 0 0 22px;
+      margin: 0 0 28px;
     }
-    .caps { font-size: clamp(22px, 3.4vw, 34px); }
-    .small { font-size: clamp(20px, 3.2vw, 32px); }
-    .nums { font-size: clamp(24px, 3.6vw, 36px); }
-    .syms { font-size: clamp(16px, 2.4vw, 24px); }
-    footer {
+    .caps { font-size: clamp(36px, 5.2vw, 56px); }
+    .lower { font-size: clamp(32px, 4.8vw, 52px); }
+    .nums { font-size: clamp(36px, 5.4vw, 58px); }
+    .syms { font-size: clamp(26px, 3.8vw, 40px); }
+    .use, footer {
+      width: 100%;
+      padding: 32px 20px;
+      border-top: 1px solid #2a2a2a;
+    }
+    .use-inner, .foot-inner { width: min(1100px, 100%); margin: 0 auto; }
+    .use h2, footer dt {
+      margin: 0 0 10px;
+      font-size: 13px;
+      color: #888;
+      font-weight: 600;
+    }
+    .use pre {
+      margin: 0;
+      padding: 14px 16px;
+      overflow: auto;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      color: #eee;
+      font-size: 13px;
+      line-height: 1.45;
+      white-space: pre-wrap;
+    }
+    footer .who-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px 14px;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 16px 16px;
-      border-top: 1px solid #2a2a2a;
-      font-size: 13px;
-      color: #9a9a9a;
+      gap: 16px 24px;
+      margin: 0 0 28px;
     }
-    footer nav { display: flex; flex-wrap: wrap; gap: 8px 14px; }
-    footer a { color: #fff; text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
+    footer .who {
+      font-family: "Cali Display", sans-serif;
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 900;
+      margin: 0;
+    }
+    footer dl {
+      margin: 0;
+      display: grid;
+      gap: 18px 32px;
+    }
+    footer div { display: grid; gap: 4px; }
+    footer dd { margin: 0; font-size: clamp(15px, 2.2vw, 17px); word-break: break-all; }
+    footer a { color: #fff; }
+    @media (min-width: 720px) {
+      footer dl { grid-template-columns: 1fr 1fr 1fr; }
+    }
+    @media (min-width: 900px) {
+      main {
+        grid-template-columns: 1fr 1fr;
+        height: 80dvh;
+      }
+      .tester { min-height: 0; }
+      .glyphs { border-top: 0; border-left: 1px solid #2a2a2a; }
+    }
     body.paper { background: #fff; color: #111; }
     body.paper header,
     body.paper footer,
+    body.paper .use,
     body.paper .glyphs { border-color: #ddd; }
     body.paper header h1, body.paper #preview { color: inherit; }
-    body.paper button { background: #f4f4f4; color: #111; border-color: #ccc; }
-    body.paper label, body.paper .glyphs h2, body.paper footer { color: #555; }
+    body.paper button, body.paper #font { background: #f4f4f4; color: #111; border-color: #ccc; }
+    body.paper label, body.paper .glyphs h2, body.paper .use h2,
+    body.paper footer dt { color: #555; }
     body.paper footer a { color: #111; }
+    body.paper .use pre { background: #f4f4f4; border-color: #ddd; color: #111; }
   </style>
 </head>
 <body>
@@ -142,7 +179,7 @@
       <label>Size <input id="size" type="range" min="24" max="180" value="72"></label>
       <label>Ink <input id="ink" type="color" value="#ffffff"></label>
       <label><input id="ss01" type="checkbox"> Logo A/B</label>
-      <button id="invert" type="button">Invert</button>
+      <button id="theme" type="button" aria-pressed="false">Light mode</button>
       <button id="png" type="button">Download PNG</button>
       <button id="svg" type="button">Download SVG</button>
     </div>
@@ -155,7 +192,7 @@
       <h2>Uppercase</h2>
       <p class="row caps">ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
       <h2>Lowercase</h2>
-      <p class="row small">abcdefghijklmnopqrstuvwxyz</p>
+      <p class="row lower">abcdefghijklmnopqrstuvwxyz</p>
       <h2>Numbers</h2>
       <p class="row nums">0123456789</p>
       <h2>Symbols</h2>
@@ -164,44 +201,81 @@
       <p class="row syms">¿ ¡ « » “ ” ‘ ’ „ ‰ − × ÷ ≠ ≈</p>
     </section>
   </main>
+  <section class="use" id="use">
+    <div class="use-inner">
+      <h2>Use it on a site</h2>
+      <pre>@font-face {
+  font-family: "Cali Display";
+  src: url("https://cdn.jsdelivr.net/gh/anxkhn/cali-display@main/fonts/CaliDisplay-Regular.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+.headline {
+  font-family: "Cali Display", sans-serif;
+  font-weight: 900;
+}</pre>
+    </div>
+  </section>
   <footer>
-    <span>Anas Khan · <a href="https://github.com/anxkhn">@anxkhn</a></span>
-    <nav>
-      <a href="https://github.com/anxkhn">GitHub</a>
-      <a href="https://x.com/anxkhn">Twitter</a>
-      <a href="https://github.com/anxkhn/cali-display">Source</a>
-    </nav>
+    <div class="foot-inner">
+      <div class="who-row">
+        <p class="who">Anas Khan · @anxkhn</p>
+        <a id="font" href="./fonts/CaliDisplay-Regular.ttf" download="CaliDisplay-Regular.ttf">Download the font</a>
+      </div>
+      <dl>
+        <div>
+          <dt>GitHub</dt>
+          <dd><a href="https://github.com/anxkhn">https://github.com/anxkhn</a></dd>
+        </div>
+        <div>
+          <dt>Twitter</dt>
+          <dd><a href="https://x.com/anxkhn">https://x.com/anxkhn</a></dd>
+        </div>
+        <div>
+          <dt>Source code</dt>
+          <dd><a href="https://github.com/anxkhn/cali-display">https://github.com/anxkhn/cali-display</a></dd>
+        </div>
+      </dl>
+    </div>
   </footer>
   <script>
     const preview = document.getElementById("preview");
     const size = document.getElementById("size");
     const ink = document.getElementById("ink");
     const ss01 = document.getElementById("ss01");
-    const apply = () => {
+    const theme = document.getElementById("theme");
+    const rows = document.querySelectorAll(".row");
+
+    function apply() {
       preview.style.fontSize = size.value + "px";
       preview.style.color = ink.value;
       const features = ss01.checked ? '"ss01" 1' : '"ss01" 0';
       preview.style.fontFeatureSettings = features;
-      document.querySelectorAll(".row").forEach((row) => {
-        row.style.fontFeatureSettings = features;
-      });
-    };
+      rows.forEach((row) => { row.style.fontFeatureSettings = features; });
+    }
+
+    function currentText() {
+      return preview.innerText.trim() || "Cali Display";
+    }
+
     size.addEventListener("input", apply);
     ink.addEventListener("input", apply);
     ss01.addEventListener("change", apply);
-    document.getElementById("invert").onclick = () => {
+    theme.addEventListener("click", () => {
       const paper = document.body.classList.toggle("paper");
+      theme.setAttribute("aria-pressed", String(paper));
+      theme.textContent = paper ? "Dark mode" : "Light mode";
       ink.value = paper ? "#111111" : "#ffffff";
       apply();
-    };
-    function text() {
-      return (preview.innerText || "").replace(/\s+$/, "") || "Cali Display";
-    }
-    document.getElementById("png").onclick = async () => {
-      const canvas = document.createElement("canvas");
+    });
+
+    document.getElementById("png").addEventListener("click", async () => {
       const scale = 2;
       const width = 1600 * scale;
       const height = 900 * scale;
+      const canvas = document.createElement("canvas");
       canvas.width = width;
       canvas.height = height;
       const ctx = canvas.getContext("2d");
@@ -212,39 +286,42 @@
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.font = `900 ${Number(size.value) * scale}px "Cali Display"`;
-      const words = text().split(/\s+/);
+      const words = currentText().split(/\s+/);
       const lines = [];
       let line = "";
-      const max = width * 0.86;
       for (const word of words) {
-        const next = line ? line + " " + word : word;
-        if (ctx.measureText(next).width > max && line) {
+        const next = line ? `${line} ${word}` : word;
+        if (line && ctx.measureText(next).width > width * 0.86) {
           lines.push(line);
           line = word;
-        } else line = next;
+        } else {
+          line = next;
+        }
       }
       if (line) lines.push(line);
       const leading = Number(size.value) * scale * 1.15;
       const top = height / 2 - ((lines.length - 1) * leading) / 2;
       lines.forEach((row, i) => ctx.fillText(row, width / 2, top + i * leading));
-      const a = document.createElement("a");
-      a.href = canvas.toDataURL("image/png");
-      a.download = "cali-display.png";
-      a.click();
-    };
-    document.getElementById("svg").onclick = () => {
+      const link = document.createElement("a");
+      link.href = canvas.toDataURL("image/png");
+      link.download = "cali-display.png";
+      link.click();
+    });
+
+    document.getElementById("svg").addEventListener("click", () => {
       const paper = document.body.classList.contains("paper") ? "#ffffff" : "#111111";
       const svg =
         `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">` +
         `<rect width="1600" height="900" fill="${paper}"/>` +
         `<text x="800" y="480" text-anchor="middle" fill="${ink.value}" ` +
         `font-family="Cali Display, sans-serif" font-weight="900" font-size="${size.value}">` +
-        `${text().replace(/&/g, "&amp;").replace(/</g, "&lt;")}</text></svg>`;
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(new Blob([svg], { type: "image/svg+xml" }));
-      a.download = "cali-display.svg";
-      a.click();
-    };
+        `${currentText().replace(/&/g, "&amp;").replace(/</g, "&lt;")}</text></svg>`;
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(new Blob([svg], { type: "image/svg+xml" }));
+      link.download = "cali-display.svg";
+      link.click();
+    });
+
     apply();
   </script>
 </body>
