@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cali Display — try it</title>
+  <style>
+    @font-face {
+      font-family: "Cali Display";
+      src: url("./fonts/CaliDisplay-Regular.woff2") format("woff2"),
+           url("./fonts/CaliDisplay-Regular.ttf") format("truetype");
+      font-weight: 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100dvh;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      background: #111;
+      color: #fff;
+    }
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 16px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid #2a2a2a;
+    }
+    header h1 {
+      margin: 0;
+      font-family: "Cali Display", sans-serif;
+      font-size: clamp(22px, 5vw, 32px);
+      font-weight: 900;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 12px;
+      align-items: center;
+    }
+    label { font-size: 13px; color: #bbb; display: flex; align-items: center; gap: 8px; }
+    button {
+      appearance: none;
+      border: 1px solid #444;
+      background: #1a1a1a;
+      color: #fff;
+      padding: 8px 12px;
+      font: inherit;
+      cursor: pointer;
+    }
+    button:hover { background: #222; }
+    input[type="range"] { width: min(140px, 30vw); }
+    input[type="color"] { width: 36px; height: 28px; padding: 0; border: 0; background: none; }
+    main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 900px) {
+      main { grid-template-columns: 1fr 1fr; min-height: 0; }
+      .tester, .glyphs { min-height: calc(100dvh - 120px); }
+    }
+    .tester {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6vh 5vw;
+    }
+    #preview {
+      width: 100%;
+      max-width: 640px;
+      min-height: 30vh;
+      outline: none;
+      text-align: center;
+      font-family: "Cali Display", sans-serif;
+      font-weight: 900;
+      font-size: clamp(32px, 8vw, 72px);
+      line-height: 1.15;
+      word-break: break-word;
+    }
+    .glyphs {
+      padding: 24px 20px 32px;
+      border-top: 1px solid #2a2a2a;
+      overflow: auto;
+    }
+    @media (min-width: 900px) {
+      .glyphs { border-top: 0; border-left: 1px solid #2a2a2a; }
+    }
+    .glyphs h2 {
+      margin: 0 0 16px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #888;
+      font-weight: 600;
+    }
+    .row {
+      font-family: "Cali Display", sans-serif;
+      font-weight: 900;
+      line-height: 1.25;
+      word-break: break-word;
+      margin: 0 0 22px;
+    }
+    .caps { font-size: clamp(22px, 3.4vw, 34px); }
+    .small { font-size: clamp(20px, 3.2vw, 32px); }
+    .nums { font-size: clamp(24px, 3.6vw, 36px); }
+    .syms { font-size: clamp(16px, 2.4vw, 24px); }
+    footer {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px 16px;
+      border-top: 1px solid #2a2a2a;
+      font-size: 13px;
+      color: #9a9a9a;
+    }
+    footer nav { display: flex; flex-wrap: wrap; gap: 8px 14px; }
+    footer a { color: #fff; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    body.paper { background: #fff; color: #111; }
+    body.paper header,
+    body.paper footer,
+    body.paper .glyphs { border-color: #ddd; }
+    body.paper header h1, body.paper #preview { color: inherit; }
+    body.paper button { background: #f4f4f4; color: #111; border-color: #ccc; }
+    body.paper label, body.paper .glyphs h2, body.paper footer { color: #555; }
+    body.paper footer a { color: #111; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Cali Display</h1>
+    <div class="controls">
+      <label>Size <input id="size" type="range" min="24" max="180" value="72"></label>
+      <label>Ink <input id="ink" type="color" value="#ffffff"></label>
+      <label><input id="ss01" type="checkbox"> Logo A/B</label>
+      <button id="invert" type="button">Invert</button>
+      <button id="png" type="button">Download PNG</button>
+      <button id="svg" type="button">Download SVG</button>
+    </div>
+  </header>
+  <main>
+    <section class="tester">
+      <div id="preview" contenteditable="true" spellcheck="false">The quick brown fox jumps over the lazy dog</div>
+    </section>
+    <section class="glyphs" aria-label="Character set">
+      <h2>Uppercase</h2>
+      <p class="row caps">ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+      <h2>Lowercase</h2>
+      <p class="row small">abcdefghijklmnopqrstuvwxyz</p>
+      <h2>Numbers</h2>
+      <p class="row nums">0123456789</p>
+      <h2>Symbols</h2>
+      <p class="row syms">! @ # $ % ^ &amp; * ( ) _ + - = { } [ ] \ | : ; " ' , . ? /</p>
+      <p class="row syms">~ ` &lt; &gt; ≤ ≥ ¥ € £ ₹ © ® ™ ° · • … ★ ♥ ● ■</p>
+      <p class="row syms">¿ ¡ « » “ ” ‘ ’ „ ‰ − × ÷ ≠ ≈</p>
+    </section>
+  </main>
+  <footer>
+    <span>Anas Khan · <a href="https://github.com/anxkhn">@anxkhn</a></span>
+    <nav>
+      <a href="https://github.com/anxkhn">GitHub</a>
+      <a href="https://x.com/anxkhn">Twitter</a>
+      <a href="https://github.com/anxkhn/cali-display">Source</a>
+    </nav>
+  </footer>
+  <script>
+    const preview = document.getElementById("preview");
+    const size = document.getElementById("size");
+    const ink = document.getElementById("ink");
+    const ss01 = document.getElementById("ss01");
+    const apply = () => {
+      preview.style.fontSize = size.value + "px";
+      preview.style.color = ink.value;
+      const features = ss01.checked ? '"ss01" 1' : '"ss01" 0';
+      preview.style.fontFeatureSettings = features;
+      document.querySelectorAll(".row").forEach((row) => {
+        row.style.fontFeatureSettings = features;
+      });
+    };
+    size.addEventListener("input", apply);
+    ink.addEventListener("input", apply);
+    ss01.addEventListener("change", apply);
+    document.getElementById("invert").onclick = () => {
+      const paper = document.body.classList.toggle("paper");
+      ink.value = paper ? "#111111" : "#ffffff";
+      apply();
+    };
+    function text() {
+      return (preview.innerText || "").replace(/\s+$/, "") || "Cali Display";
+    }
+    document.getElementById("png").onclick = async () => {
+      const canvas = document.createElement("canvas");
+      const scale = 2;
+      const width = 1600 * scale;
+      const height = 900 * scale;
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d");
+      ctx.fillStyle = getComputedStyle(document.body).backgroundColor;
+      ctx.fillRect(0, 0, width, height);
+      await document.fonts.ready;
+      ctx.fillStyle = ink.value;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.font = `900 ${Number(size.value) * scale}px "Cali Display"`;
+      const words = text().split(/\s+/);
+      const lines = [];
+      let line = "";
+      const max = width * 0.86;
+      for (const word of words) {
+        const next = line ? line + " " + word : word;
+        if (ctx.measureText(next).width > max && line) {
+          lines.push(line);
+          line = word;
+        } else line = next;
+      }
+      if (line) lines.push(line);
+      const leading = Number(size.value) * scale * 1.15;
+      const top = height / 2 - ((lines.length - 1) * leading) / 2;
+      lines.forEach((row, i) => ctx.fillText(row, width / 2, top + i * leading));
+      const a = document.createElement("a");
+      a.href = canvas.toDataURL("image/png");
+      a.download = "cali-display.png";
+      a.click();
+    };
+    document.getElementById("svg").onclick = () => {
+      const paper = document.body.classList.contains("paper") ? "#ffffff" : "#111111";
+      const svg =
+        `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">` +
+        `<rect width="1600" height="900" fill="${paper}"/>` +
+        `<text x="800" y="480" text-anchor="middle" fill="${ink.value}" ` +
+        `font-family="Cali Display, sans-serif" font-weight="900" font-size="${size.value}">` +
+        `${text().replace(/&/g, "&amp;").replace(/</g, "&lt;")}</text></svg>`;
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(new Blob([svg], { type: "image/svg+xml" }));
+      a.download = "cali-display.svg";
+      a.click();
+    };
+    apply();
+  </script>
+</body>
+</html>
